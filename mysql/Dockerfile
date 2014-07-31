@@ -15,8 +15,15 @@ RUN bash -c 'debconf-set-selections <<< "mysql-server mysql-server/root_password
 RUN bash -c 'debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"'
 
 RUN apt-get update -qq
-RUN apt-get install mysql-server-5.5 -qqy
+RUN apt-get install -qqy mysql-server-5.5 g++ make libssl-dev libntl-dev libgmp-dev
 
+#set edb.so
+RUN git clone https://github.com/moonnoon/cryptdbedb.git /opt/cryptdb
+ENV OBJDIR /opt/cryptdb
+WORKDIR /opt/cryptdb/udf
+RUN make install
+
+#configure mysql
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 ADD setmysql.sh /opt/setmysql.sh
 RUN /opt/setmysql.sh

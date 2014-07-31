@@ -1,1 +1,2 @@
-docker build -t "moonnoon/cryptdb" ./proxy/
+docker build -t "moonnoon/proxy" ./proxy/
+docker build -t "moonnoon/mysql" ./mysql/
