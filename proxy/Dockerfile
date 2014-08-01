@@ -1,4 +1,4 @@
-#cryptdb
+#cryptdb proxy
 #
 #VERSION 0.0.1
 
@@ -13,17 +13,17 @@ RUN git clone https://github.com/moonnoon/cryptdbx.git /opt/cryptdb
 WORKDIR /opt/cryptdb
 #sudo 
 #yes
-RUN chmod +x ./scripts/install.rb .
 #
 #edb.so
 #install -m 644 -g mysql -o mysql obj/udf/edb.so /usr/lib/mysql/plugin
-RUN ./scripts/install.rb .
+RUN ruby ./scripts/install.rb .
 #VOLUME ["/data"]
 #RUN cp /opt/cryptdb/obj/udf/edb.so /data
 ENV EDBDIR /opt/cryptdb
 
-ADD runproxy.sh /opt/cryptdb/runproxy.sh
+#run
+ADD ./runproxy.sh /opt/cryptdb/runproxy.sh
 RUN chmod +x /opt/cryptdb/runproxy.sh
-#CMD ["/opt/cryptdb/runproxy.sh"]
+CMD ["/opt/cryptdb/runproxy.sh"]
 
-EXPOSE 3306 3307
+EXPOSE 3306
