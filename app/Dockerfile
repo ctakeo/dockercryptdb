@@ -2,7 +2,7 @@
 #
 #VERSION 0.0.1
 
-FROM debian:wheezy
+FROM moonnoon/base
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
 RUN apt-get update -qq
